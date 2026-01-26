@@ -284,6 +284,13 @@ header{
     cursor: pointer;
     transform: scale(1.2);
 }
+.refresh{
+    color: rgb(223, 218, 218);
+    font-style: italic;
+    text-align: center;
+    position: relative;
+    top: 20px;
+}
 
 /* RESPONSIVE */
 
@@ -317,7 +324,7 @@ header{
         left: 60%;
     }
     .all-filters{
-        top: 180px;
+        top: 170px;
         height: 27px;
         width: 150px;
         font-size: 13px;
