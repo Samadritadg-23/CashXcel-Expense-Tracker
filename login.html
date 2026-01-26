@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login|CashXcel</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+
+<body>
+    <div class="login_container">
+
+        <!--login form-->
+        <form class="login_form" autocomplete="off">
+            <h1 id="login_text">LOGIN</h1>
+            <p class="labels" id="name">Username</p>
+            <input type="text" placeholder="Enter your name" id="user_name">
+            <p class="labels" id="password">Password</p>
+            <input type="password" maxlength="4" placeholder="Enter your 4-digit password" id="user_password" name="passcode" autocomplete="new-password">
+
+            <button id="login_button">login</button>
+            <p id="new_user" class="switch" onclick="showSignUp()"><i>New user?</i></p>
+        </form> 
+
+        <!--signup form-->
+        <form class="signup_form" autocomplete="off">
+            <h1 id="login_text">SIGN UP</h1>
+            <p id="login_info">(login using the same google account in the future)</p>
+            <p class="labels" id="set_name">Set username</p>
+            <input type="text" placeholder="Enter your name" id="set_user_name">
+            <p class="labels" id="set_password">Set password</p>
+            <input type="password" maxlength="4" placeholder="Set your 4-digit password" id="set_user_password" name="passcode1" autocomplete="new-password">
+            <p class="labels" id="confirm_password">Confirm password</p>
+            <input type="password" maxlength="4" placeholder="Confirm your 4-digit password" id="confirm_user_password" name="passcode2" autocomplete="new-password">
+            <button id="signup_button">sign up</button>
+            <p id="old_user" class="switch" onclick="showLogin()" ><i>Already have an account?</i></p>
+
+        </form>
+        
+    </div>
+    <script src="login.js"></script>
+</body>
+
+</html>
