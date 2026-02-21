@@ -1,4 +1,5 @@
 let lineGraphLabels = [];
+<<<<<<< HEAD
 let currentMode = "daily";
 
 
@@ -10,6 +11,19 @@ const welcomeName = document.querySelector("#welcome_name");
 welcomeName.textContent = "Hi! " + storedName;
 const userList = JSON.parse(localStorage.getItem("users")) || [];
 const user = userList.find(u => u.username === storedName);
+=======
+let currentMode = "daily"; 
+
+
+const storedName=localStorage.getItem("currentUser");
+if(!storedName){
+    window.location.href="login.html";
+}
+const welcomeName=document.querySelector("#welcome_name");
+welcomeName.textContent="Hi! "+ storedName;
+const userList=JSON.parse(localStorage.getItem("users")) || [];
+const user=userList.find(u=>u.username===storedName);
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 user.savingsHistory = user.savingsHistory || [];
 updateSavingsTotal();
 
@@ -30,6 +44,7 @@ if (!user.budgetLimit) {
 
 
 
+<<<<<<< HEAD
 let netBalance = user.balance;
 let balanceAmount = document.querySelector("#balance_amount");
 if (netBalance >= 0) {
@@ -45,17 +60,41 @@ const logoutButton = document.querySelector("#logout");
 logoutButton.addEventListener("click", function () {
     localStorage.removeItem("currentUser");
     window.location.href = "login.html";
+=======
+let netBalance=user.balance;
+let balanceAmount=document.querySelector("#balance_amount");
+if(netBalance>=0){
+    balanceAmount.textContent="+₹"+netBalance;
+    balanceAmount.dataset.color="green"
+}
+if(netBalance<0){
+    balanceAmount.textContent="-₹"+Math.abs(netBalance);
+    balanceAmount.dataset.color="red";
+}
+//logout
+const logoutButton=document.querySelector("#logout");
+logoutButton.addEventListener("click",function(){
+    localStorage.removeItem("currentUser");
+    window.location.href="login.html";
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 
 })
 
 //modal
+<<<<<<< HEAD
 const addExpenseBtn = document.querySelector("#add_expense");
 const modal = document.querySelector("#expense_modal");
 const closeModal = document.querySelector("#close-modal");
+=======
+const addExpenseBtn=document.querySelector("#add_expense");
+const modal=document.querySelector("#expense_modal");
+const closeModal=document.querySelector("#close-modal");
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 const modalStep1 = document.querySelector("#modal_step1");
 const modalGave = document.querySelector("#modal-you-gave");
 const modalGot = document.querySelector("#modal-you-got");
 
+<<<<<<< HEAD
 function setDefaultDates() {
     const today = new Date().toISOString().split("T")[0];
 
@@ -96,6 +135,37 @@ document.querySelector("#yougot-button").addEventListener("click", function () {
 document.querySelector("#save_gave").addEventListener("click", function () {
 
     let category = document.querySelector("#gave_category").value;
+=======
+addExpenseBtn.addEventListener("click",function(){
+    modal.style.display="flex";
+})
+closeModal.addEventListener("click",function(){
+    modal.style.display="none";
+    resetModal();
+})
+window.addEventListener("click",function(e){
+    if(e.target===modal){
+        modal.style.display="none";
+        resetModal();
+    }
+})
+function resetModal(){
+    modalStep1.style.display="block";
+    modalGave.style.display="none";
+    modalGot.style.display="none";
+}
+document.querySelector("#yougave-button").addEventListener("click",function(){
+    modalStep1.style.display="none";
+    modalGave.style.display="flex";
+})
+document.querySelector("#yougot-button").addEventListener("click",function(){
+    modalStep1.style.display="none";
+    modalGot.style.display="flex";
+})
+document.querySelector("#save_gave").addEventListener("click",function(){
+    
+    let category=document.querySelector("#gave_category").value;
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     let amount = Number(document.querySelector("#gave_amount").value);
     let description = document.querySelector("#gave_description").value;
     if (category === "") {
@@ -106,6 +176,7 @@ document.querySelector("#save_gave").addEventListener("click", function () {
         alert("Enter valid amount");
         return;
     }
+<<<<<<< HEAD
     const selectedDate = document.querySelector("#gave_date").value;
     let finalDate;
     if (selectedDate) {
@@ -128,6 +199,18 @@ document.querySelector("#save_gave").addEventListener("click", function () {
     })
     drawLineGraph();
     user.balance -= amount;
+=======
+    user.expenses.push({
+        id: Date.now(),
+        type:"gave",
+        categories:category,
+        amounts:amount,
+        descriptions:description,
+        date: new Date().toISOString(),
+    })
+    drawLineGraph();
+    user.balance-=amount;
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     document.querySelector("#gave_category").value = "";
     document.querySelector("#gave_amount").value = "";
     document.querySelector("#gave_description").value = "";
@@ -137,8 +220,11 @@ document.querySelector("#save_gave").addEventListener("click", function () {
     displayRecentFour();
     updateInsights();
 })
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 document.querySelector("#save_got").addEventListener("click", () => {
     let amount = Number(document.querySelector("#got_amount").value);
     let description = document.querySelector("#got_description").value;
@@ -147,6 +233,7 @@ document.querySelector("#save_got").addEventListener("click", () => {
         alert("Enter valid amount");
         return;
     }
+<<<<<<< HEAD
     const selectedDate = document.querySelector("#got_date").value;
     let finalDate;
     if (selectedDate) {
@@ -164,6 +251,15 @@ document.querySelector("#save_got").addEventListener("click", () => {
         amounts: amount,
         descriptions: description,
         date: finalDate,
+=======
+
+    user.expenses.push({
+        id: Date.now(), 
+        type: "got",
+        amounts: amount,
+        descriptions: description,
+        date: new Date().toISOString(),
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     });
     drawLineGraph();
 
@@ -179,12 +275,16 @@ document.querySelector("#save_got").addEventListener("click", () => {
 document.querySelector("#save_got_reflect").addEventListener("click", () => {
     let amount = Number(document.querySelector("#got_amount").value);
     let description = document.querySelector("#got_description").value;
+<<<<<<< HEAD
     const selectedDate = document.querySelector("#got_date").value;
+=======
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 
     if (!amount) {
         alert("Enter valid amount");
         return;
     }
+<<<<<<< HEAD
     let finalDate;
     if (selectedDate) {
         const now = new Date();
@@ -195,12 +295,19 @@ document.querySelector("#save_got_reflect").addEventListener("click", () => {
     } else {
         finalDate = new Date().toISOString();
     }
+=======
+
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     user.expenses.push({
         id: Date.now(),
         type: "got_extra",
         amounts: amount,
         descriptions: description,
+<<<<<<< HEAD
         date: finalDate,
+=======
+        date: new Date().toISOString(),
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     });
     drawLineGraph();
 
@@ -215,7 +322,11 @@ document.querySelector("#save_got_reflect").addEventListener("click", () => {
     modal.style.display = "none";
     resetModal();
     updateInsights();
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 });
 function updateBalanceUI() {
     let balanceAmount = document.querySelector("#balance_amount");
@@ -240,6 +351,7 @@ function saveUserData() {
 
 
 //LIMIT CONTROL MODAL
+<<<<<<< HEAD
 const setExpenditureText = document.querySelector("#set_expenditure_limit");
 const limitModal = document.querySelector(".limit_modal");
 const closeLimitModal = document.querySelector("#close-modal-limit");
@@ -264,11 +376,41 @@ limitSaveBtn.addEventListener("click", function () {
     else {
         const expenditureLimit = document.querySelector("#limit_amount").value;
         document.querySelector("#expenditure_limit").textContent = `Expenditure Limit : ₹${expenditureLimit}`;
+=======
+const setExpenditureText=document.querySelector("#set_expenditure_limit");
+const limitModal=document.querySelector(".limit_modal");
+const closeLimitModal=document.querySelector("#close-modal-limit");
+const limitSaveBtn=document.querySelector("#save_limit");
+setExpenditureText.addEventListener("click",function(){
+    limitModal.style.display="flex";
+})
+closeLimitModal.addEventListener("click",function(){
+    limitModal.style.display="none";
+    
+})
+window.addEventListener("click",function(e){
+    if(e.target===limitModal){
+        limitModal.style.display="none";
+       
+    }
+})
+limitSaveBtn.addEventListener("click",function(){
+    if (document.querySelector("#limit_amount").value=="" || document.querySelector("#limit_start_date").value==""){
+        alert("Fill all the fields!");
+    }
+    else{
+        const expenditureLimit=document.querySelector("#limit_amount").value;
+        document.querySelector("#expenditure_limit").textContent=`Expenditure Limit : ₹${expenditureLimit}`;
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         user.budgetLimit = Number(expenditureLimit);
         const startDate = document.querySelector("#limit_start_date").value;
         user.budgetStartDate = startDate;
         saveUserData();
+<<<<<<< HEAD
         limitModal.style.display = "none";
+=======
+        limitModal.style.display="none";
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         updateLimitUI();
         updateInsights();
 
@@ -280,7 +422,11 @@ function calculateSpentSinceStart() {
 
     if (!freshUser.budgetStartDate) return 0;
 
+<<<<<<< HEAD
     const start = new Date(freshUser.budgetStartDate + "T00:00:00");
+=======
+    const start = new Date(freshUser.budgetStartDate + "T00:00:00");    
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     if (isNaN(start)) return 0;
 
     let total = 0;
@@ -298,6 +444,7 @@ function calculateSpentSinceStart() {
     return total;
 }
 
+<<<<<<< HEAD
 function updateLimitUI() {
     const freshUsers = JSON.parse(localStorage.getItem("users"));
     const freshUser = freshUsers.find(u => u.username === storedName);
@@ -306,6 +453,16 @@ function updateLimitUI() {
     const left = limit - spent;
     document.querySelector("#spent").textContent = `Spent : ₹${spent}`;
     document.querySelector("#left").textContent = `Left : ₹${left} `;
+=======
+function updateLimitUI(){
+    const freshUsers = JSON.parse(localStorage.getItem("users"));
+    const freshUser = freshUsers.find(u => u.username === storedName);
+    const spent=calculateSpentSinceStart();
+    const limit = freshUser.budgetLimit || 0;
+    const left=limit-spent;
+    document.querySelector("#spent").textContent = `Spent : ₹${spent}`;
+    document.querySelector("#left").textContent= `Left : ₹${left} `;
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     if (limit > 0) {
         document.querySelector("#expenditure_limit").textContent = `Expenditure Limit : ₹${limit}`;
     } else {
@@ -316,6 +473,7 @@ function updateLimitUI() {
         percentage = Math.min((spent / limit) * 100, 100);
     }
     document.querySelector("#percentage_used").textContent = `${percentage.toFixed(0)}%`;
+<<<<<<< HEAD
     const bar = document.querySelector(".limit_bar_fill");
     bar.style.width = percentage + "%";
     if (spent > limit) {
@@ -395,6 +553,87 @@ else {
 };
 document.querySelector("#show_all").addEventListener("click", function () {
     window.location.href = "expense.html";
+=======
+    const bar=document.querySelector(".limit_bar_fill");
+    bar.style.width=percentage+"%";
+    if(spent>limit){
+        bar.style.background="red";
+    }
+    else{
+        bar.style.background="limegreen";
+    }
+
+}
+const clearDataText=document.querySelector("#remove_limit");
+clearDataText.addEventListener("click",function(){
+    user.budgetLimit = 0;
+    user.budgetStartDate = null;
+    localStorage.setItem("users", JSON.stringify(userList));
+    document.querySelector("#percentage_used").textContent ="0%";
+    document.querySelector("#expenditure_limit").textContent =`Expenditure Limit : Not set`;
+    document.querySelector("#spent").textContent ="Spent : ₹0";
+    document.querySelector("#left").textContent="Left : ₹0";
+    const bar=document.querySelector(".limit_bar_fill");
+    bar.style.width="0%";
+})
+
+//Recent-expenses
+    function displayRecentFour(){
+        const allExpenses=user.expenses;
+        allExpenseDiv.innerHTML = ""; 
+        const sorted=[...allExpenses].sort(function(a,b){
+            return new Date(b.date)-new Date(a.date);
+        });
+        const recentFour=sorted.slice(0,4);
+        recentFour.forEach(function(expense){
+            const currentExpense=document.createElement("div");
+            currentExpense.classList.add("expense");
+            const type=expense.type;
+            if(type==="got"||type==="got_extra"){
+                currentExpense.dataset.color="green";
+            }
+            else if(type=="gave"){
+                currentExpense.dataset.color="red";
+            }
+            currentExpense.appendChild(document.createElement("header"));
+            const dateTime=document.createElement("h5");
+            dateTime.id="date_time";
+            dateTime.textContent = new Date(expense.date).toLocaleString();
+            currentExpense.appendChild(dateTime);
+            const section=document.createElement("section");
+            section.classList.add("expense_details");
+            const divInsideSection=document.createElement("div");
+            divInsideSection.classList.add("expense_details_name");
+            const pInsideDiv=document.createElement("p");
+            pInsideDiv.innerText=expense.descriptions;
+            const spanInsideDiv=document.createElement("span");
+            spanInsideDiv.innerText=expense.categories?`(${expense.categories})`:"";
+            divInsideSection.appendChild(pInsideDiv);
+            divInsideSection.appendChild(spanInsideDiv);
+            const amount=document.createElement("h6");
+            amount.innerText="₹"+expense.amounts;
+            section.appendChild(divInsideSection);
+            section.appendChild(amount);
+            currentExpense.appendChild(section);
+            allExpenseDiv.appendChild(currentExpense); 
+        });
+    
+
+    }
+
+const allExpenseDiv=document.querySelector(".all-expenses");
+if(user.expenses.length===0){
+    const noExpense=document.createElement("p");
+    noExpense.classList.add("no-expense");
+    noExpense.innerText="-No expenses added till now-"
+    allExpenseDiv.appendChild(noExpense);
+}
+else{
+    displayRecentFour();
+};
+document.querySelector("#show_all").addEventListener("click",function(){
+    window.location.href="expense.html";
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 })
 updateLimitUI();
 
@@ -404,7 +643,11 @@ const notesModal = document.querySelector("#notes_modal");
 const closeNotesModal = document.querySelector("#close_notes_modal");
 const notesTextarea = document.querySelector("#notes_textarea");
 
+<<<<<<< HEAD
 pencilIcon.addEventListener("click", function () {
+=======
+pencilIcon.addEventListener("click", function() {
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     if (user.notes) {
         notesTextarea.value = user.notes;
     } else {
@@ -414,42 +657,75 @@ pencilIcon.addEventListener("click", function () {
     notesModal.style.display = "flex";
 });
 
+<<<<<<< HEAD
 closeNotesModal.addEventListener("click", function () {
     notesModal.style.display = "none";
 });
 
 window.addEventListener("click", function (e) {
+=======
+closeNotesModal.addEventListener("click", function() {
+    notesModal.style.display = "none";
+});
+
+window.addEventListener("click", function(e) {
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     if (e.target === notesModal) {
         notesModal.style.display = "none";
     }
 });
+<<<<<<< HEAD
 document.querySelector("#save_notes_btn").addEventListener("click", function () {
     const writtenNotes = notesTextarea.value.trim();
     user.notes = writtenNotes;
+=======
+document.querySelector("#save_notes_btn").addEventListener("click", function() {
+    const writtenNotes = notesTextarea.value.trim();
+    user.notes = writtenNotes; 
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     localStorage.setItem("users", JSON.stringify(userList));
     notesModal.style.display = "none";
 });
 
 
 const savingsBox = document.querySelector("#savings_modal");
+<<<<<<< HEAD
 document.querySelector("#savings").addEventListener("click", function () {
     savingsBox.style.display = "flex";
 });
 
 window.addEventListener("click", function (e) {
+=======
+document.querySelector("#savings").addEventListener("click", function() {
+    savingsBox.style.display = "flex";
+});
+
+window.addEventListener("click", function(e) {
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     if (e.target === savingsBox) {
         savingsBox.style.display = "none";
     }
 });
+<<<<<<< HEAD
 document.querySelector("#save_savings_btn").addEventListener("click", function () {
 
     let amount = Number(document.querySelector("#savings_input").value);
     let description = document.querySelector("#savings_description").value;
+=======
+document.querySelector("#save_savings_btn").addEventListener("click", function() {
+
+    let amount = Number(document.querySelector("#savings_input").value);
+    let description=document.querySelector("#savings_description").value;
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     if (!amount || amount <= 0) {
         alert("Enter a valid savings amount");
         return;
     }
+<<<<<<< HEAD
     if (!description) {
+=======
+    if(!description){
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         alert("Write some description");
         return;
     }
@@ -462,11 +738,19 @@ document.querySelector("#save_savings_btn").addEventListener("click", function (
     updateInsights();
     updateSavingsTotal();
     dropCoin();
+<<<<<<< HEAD
     document.querySelector("#savings_input").value = "";
     document.querySelector("#savings_description").value = "";
     localStorage.setItem("users", JSON.stringify(userList));
     savingsBox.style.display = "none";
 
+=======
+    document.querySelector("#savings_input").value="";
+    document.querySelector("#savings_description").value="";
+    localStorage.setItem("users", JSON.stringify(userList));
+    savingsBox.style.display = "none";
+    
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 });
 function updateSavingsTotal() {
     let total = 0;
@@ -499,9 +783,15 @@ function loadCoins() {
 
 loadCoins();
 
+<<<<<<< HEAD
 const showAllBtn = document.querySelector(".show_all_savings");
 showAllBtn.addEventListener("click", function () {
     window.location.href = "savings.html";
+=======
+const showAllBtn=document.querySelector(".show_all_savings");
+showAllBtn.addEventListener("click",function(){
+    window.location.href="savings.html";
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 })
 
 
@@ -563,7 +853,11 @@ function drawLineGraph() {
     }
     canvas.style.display = "block";
     graphContainer.classList.remove("compact");
+<<<<<<< HEAD
     if (graphContainer.querySelector(".no-expense")) {
+=======
+    if(graphContainer.querySelector(".no-expense")){
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         graphContainer.removeChild(graphContainer.querySelector(".no-expense"));
     };
 
@@ -575,12 +869,17 @@ function drawLineGraph() {
         ? getDailyData()
         : getMonthlyData();
 
+<<<<<<< HEAD
     const sortedEntries = Object.entries(dataMap).sort((a, b) => {
         return new Date(a[0]) - new Date(b[0]);
     });
 
     lineGraphLabels = sortedEntries.map(e => e[0]);
     const values = sortedEntries.map(e => e[1]);
+=======
+    lineGraphLabels = Object.keys(dataMap);
+    const values = Object.values(dataMap);
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 
     if (values.length === 0) return;
 
@@ -645,7 +944,11 @@ function drawLineGraph() {
         ctx.textAlign = "center";
         ctx.fillText(lineGraphLabels[0], x, h - 15);
 
+<<<<<<< HEAD
         return;
+=======
+        return; 
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     }
 
     values.forEach((value, i) => {
@@ -658,16 +961,30 @@ function drawLineGraph() {
 
         if (i === 0) {
             ctx.moveTo(x, y);
+<<<<<<< HEAD
         }
+=======
+        } 
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         else {
             ctx.lineTo(x, y);
         }
 
     });
 
+<<<<<<< HEAD
     const last = lineGraphPoints[lineGraphPoints.length - 1];
     ctx.lineTo(last.x, last.y);
     ctx.stroke();
+=======
+const last = lineGraphPoints[lineGraphPoints.length - 1];
+ctx.lineTo(last.x, last.y);
+ctx.stroke();
+
+
+
+
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 
     ctx.fillStyle = "#4bc0c0";
     lineGraphPoints.forEach(p => {
@@ -676,10 +993,15 @@ function drawLineGraph() {
         ctx.fill();
     });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     ctx.fillStyle = "#ccc";
     ctx.font = "11px sans-serif";
     ctx.textAlign = "center";
 
+<<<<<<< HEAD
     const graphWidth = canvas.clientWidth;
     const maxLabels = Math.floor(graphWidth / 80)
     const safeMaxLabels = Math.max(maxLabels, 2);
@@ -703,6 +1025,12 @@ function drawLineGraph() {
     });
 
 
+=======
+    lineGraphLabels.forEach((label, i) => {
+        const x = padding + (i / (lineGraphLabels.length - 1)) * (w - padding * 2);
+        ctx.fillText(label, x, h - 15);
+    });
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 }
 
 const toggleBtn = document.getElementById("toggle_btn");
@@ -732,6 +1060,7 @@ toggleBtn.addEventListener("click", function () {
 
 
 drawLineGraph();
+<<<<<<< HEAD
 function getOrdinal(n) {
     n = Number(n);
 
@@ -750,17 +1079,33 @@ function updateInsights() {
     if (user.expenses.length == 0) {
         list.innerHTML = `<li class="no-expense">-Add expenses to see insight-</li>`;
 
+=======
+
+function updateInsights() {
+    let list = document.getElementById("insight1");
+    if(user.expenses.length==0){
+        list.innerHTML=`<li class="no-expense">-Add expenses to see insight-</li>`;
+    
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         return;
     }
 
     let now = new Date();
+<<<<<<< HEAD
     let month = now.getMonth(); 
+=======
+    let month = now.getMonth();
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     let year = now.getFullYear();
 
     let dailySpend = {};
     let categorySpend = {};
 
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     user.expenses.forEach(function (exp) {
 
         if (exp.type !== "gave") return;
@@ -771,7 +1116,11 @@ function updateInsights() {
             return;
         }
 
+<<<<<<< HEAD
         let day = d.getDate();
+=======
+        let day = d.getDate(); 
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 
         if (dailySpend[day]) {
             dailySpend[day] += exp.amounts;
@@ -817,12 +1166,20 @@ function updateInsights() {
     let trackingStart;
     if (user.trackingStartDate) {
         trackingStart = new Date(user.trackingStartDate);
+<<<<<<< HEAD
     }
+=======
+    } 
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     else if (user.expenses.length > 0) {
         trackingStart = new Date(
             Math.min(...user.expenses.map(e => new Date(e.date)))
         );
+<<<<<<< HEAD
     }
+=======
+    } 
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
     else {
         trackingStart = null;
     }
@@ -834,6 +1191,7 @@ function updateInsights() {
 
         noExpenseDays = Math.max(totalDaysTracked - daysCount, 0);
     }
+<<<<<<< HEAD
     let totalSaved = 0;
     user.savingsHistory.forEach(function (saving) {
         var d = new Date(saving.date);
@@ -842,10 +1200,21 @@ function updateInsights() {
         }
         else {
             totalSaved += saving.amount;
+=======
+    let totalSaved=0;
+    user.savingsHistory.forEach(function(saving){
+        var d=new Date(saving.date);
+        if(d.getMonth()!=month || d.getFullYear()!=year){
+            return;
+        }
+        else{
+            totalSaved+=saving.amount;
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         }
     })
 
     list.innerHTML =
+<<<<<<< HEAD
         "<li><span>Highest spending day:</span> ₹" + highestAmount + " on " + getOrdinal(highestDay) + "</li>" +
         "<li><span>Top category:</span> " + topCategory + " (₹" + topCategoryAmount + ")</li>" +
         "<li><span>Avg daily spend:</span> ₹" + avgDaily + "</li>" +
@@ -873,6 +1242,35 @@ function updateInsights() {
 
 
 
+=======
+        "<li><span>Highest spending day:</span> ₹" + highestAmount + "  on  " + highestDay + "th </li>" +
+        "<li><span>Top category:</span> " + topCategory + " (₹" + topCategoryAmount + ")</li>" +
+        "<li><span>Avg daily spend:</span> ₹" + avgDaily + "</li>" +
+        "<li>" + noExpenseDays + " <span>days with no expenses</span></li>"+
+        "<li><span>Total saved this month: </span> ₹"+ totalSaved + "</li>"
+    ;
+    const insight2=document.querySelector("#insight2");
+    let daysInMonth= new Date(year,month+1,0).getDate();
+    let aboveLimit=false;
+    if(avgDaily*daysInMonth>user.budgetLimit){
+        aboveLimit=true;
+    }
+    if(aboveLimit){
+        insight2.innerHTML=
+        "<p>At current rate, you may spend ₹"+ avgDaily*daysInMonth+ " this month</p>"+
+        "<p>⚠️ You are likely to exceed your limit</p>"
+        ;
+    }
+    else{
+        insight2.innerHTML=
+        "<p>At current rate, you may spend ₹"+ avgDaily*daysInMonth+" this month</p>"+
+        "<p>You are unlikely to exceed your limit</p>"
+        ;
+    }
+
+    
+    
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 }
 
 updateInsights();
@@ -886,6 +1284,7 @@ if (threeLines && sidebar) {
     });
 }
 
+<<<<<<< HEAD
 document.querySelector("#expense_modal").addEventListener("keydown", function (e) {
     if (e.key !== "Enter") {
         return;
@@ -895,6 +1294,17 @@ document.querySelector("#expense_modal").addEventListener("keydown", function (e
         document.querySelector("#save_gave").click();
     }
     else if (modalGot.style.display === "flex") {
+=======
+document.querySelector("#expense_modal").addEventListener("keydown",function(e){
+    if(e.key!=="Enter"){
+        return;
+    }
+    e.preventDefault();
+    if(modalGave.style.display==="flex"){
+        document.querySelector("#save_gave").click();
+    }
+    else if(modalGot.style.display==="flex"){
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
         document.querySelector("#save_got").click();
     }
 
@@ -906,6 +1316,7 @@ document.querySelector(".limit_modal").addEventListener("keydown", function (e) 
     document.querySelector("#save_limit").click();
 });
 
+<<<<<<< HEAD
 document.querySelector("#savings_modal").addEventListener("keydown", function (e) {
     if (e.key !== "Enter") {
         return;
@@ -915,6 +1326,17 @@ document.querySelector("#savings_modal").addEventListener("keydown", function (e
         document.querySelector("#save_savings_btn").click();
     }
 
+=======
+document.querySelector("#savings_modal").addEventListener("keydown",function(e){
+    if(e.key!=="Enter"){
+        return;
+    }
+    e.preventDefault();
+    if(savingsBox.style.display==="flex"){
+        document.querySelector("#save_savings_btn").click();
+    }
+    
+>>>>>>> 79bb985315f1704aa870c03d6f24abf4505446e2
 
 });
 
